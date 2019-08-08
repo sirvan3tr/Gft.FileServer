@@ -1,0 +1,16 @@
+python3 -m venv venv
+venv\Scripts\activate
+
+export FLASK_APP=plotmaponline.py [on osx]
+set FLASK_APP=plotmaponline.py [on windows]
+
+pip freeze > requirements.txt
+
+$env:FLASK_APP = "plotmaponline.py"
+
+deactivate (to get out of venv)
+
+on Windows:
+python -m flask run
+
+https://code.visualstudio.com/docs/python/tutorial-flask

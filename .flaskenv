@@ -1,0 +1,2 @@
+FLASK_APP=plotmaponline.py
+FLASK_ENV=development

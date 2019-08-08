@@ -1,0 +1,371 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet" media="screen">
+<script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+
+<div class="container-fluid">
+  <div class="row">
+    
+    <nav class="col-md-1">
+      Test
+    </nav>
+
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-11 px-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true"> 
+            <i class="material-icons icon-21">note_add</i>          
+          Your Data
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="false">
+          <i class="material-icons icon-21">map</i>
+          Map
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+          <i class="material-icons icon-21">send</i>
+          Publish or Download
+        </a>
+    </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
+        <div class="data-toolbar">
+          You can copy and paste your data, upload data, or link a Google Sheet file
+          <form method="post" enctype="multipart/form-data">
+            <label for="file" class="uploadLabel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
+            </label>
+            <input type="file" name="file" id="file" class="inputfile shadow-md" data-multiple-caption="{count} files selected" multiple />
+            <input type="submit" value="Upload"/>
+          </form>
+        </div>
+          <div class="data-toolbar">
+          <div id="geocode-btn" class="ui basic button" tabindex="0">
+              <div class="visible content">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  width="13px" height="13px" viewBox="0 0 92 92" enable-background="new 0 0 92 92" xml:space="preserve">
+                  <path id="XMLID_1638_" d="M90.8,26.4L65.6,1.2c-1.6-1.6-4.1-1.6-5.7,0c-0.3,0.3-7.6,7.8-4.8,17.6L43.7,30.2
+                  c-6.3-1.9-22.4-5.2-34.3,6.7c-1.6,1.6-1.6,4.1,0,5.7l17.2,17.2L1.2,85.2c-1.6,1.6-1.6,4.1,0,5.7C2,91.6,3,92,4,92s2-0.4,2.8-1.2
+                  l25.4-25.4l17.2,17.2c0.8,0.8,1.8,1.2,2.8,1.2c1,0,2-0.4,2.8-1.2c11.9-11.9,8.6-28.1,6.7-34.3l11.4-11.4c9.8,2.8,17.2-4.5,17.6-4.8
+                  C92.4,30.5,92.4,28,90.8,26.4z M73.9,28.6c-1.5-0.7-3.3-0.4-4.5,0.8l-15,15c-1.1,1.1-1.5,2.9-0.9,4.3c0,0,1.8,4.5,2.1,10.3
+                  c0.3,5.8-0.9,10.7-3.6,14.8L35,57c0,0,0,0,0,0s0,0,0,0l-17-17c10.7-7.2,24.5-1.8,25.1-1.5c1.5,0.6,3.2,0.3,4.4-0.9l15-15
+                  c1.2-1.2,1.5-3,0.8-4.5c-1.4-3-0.9-5.7,0-7.8l18.4,18.4C79.7,29.5,76.9,30,73.9,28.6z M50.2,50.3c0.1,0.3,1.4,3.2,1.3,6.3
+                  C51.5,58.5,49.9,60,48,60c0,0-0.1,0-0.1,0c-1.9-0.1-3.5-1.7-3.4-3.6c0-1.3-0.5-2.8-0.7-3.3c-0.8-1.8,0-3.8,1.8-4.6
+                  C47.4,47.8,49.5,48.5,50.2,50.3z"/>
+                 </svg>
+                  Geocode
+              </div>
+          </div>
+          <div id="makeheader-btn" onclick="makeHeader()" class="ui basic button" tabindex="0">
+              <div class="visible content">Make first row my header</div>
+          </div>
+          <div id="createmap-btn" class="ui violet basic button" tabindex="0">
+              <div class="visible content">
+                  Create map</div>
+          </div>
+
+          
+
+        </div><!-- /data-toolbar-->
+        <div id="thegrid"></div>
+    </div>
+    <div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
+
+
+
+        <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+        <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+        <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+
+        <div id="zeemap" class="zeemap" style="height: 400px; position: relative"></div>
+        <div id="info">&nbsp;</div>
+<script type="text/javascript">
+      var map = new ol.Map({
+        target: 'zeemap',
+        layers: [
+          new VectorLayer({
+            renderMode: 'image',
+            source: new VectorSource({
+              url: '/static/geo/ref-countries-2016-10m.geojson/CNTR_RG_10M_2016_4326.geojson',
+              format: new GeoJSON()
+            }),
+            style: function(feature) {
+              style.getText().setText(feature.get('name'));
+              return style;
+            }
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([37.41, 8.82]),
+          zoom: 4
+        })
+      });
+    </script>
+
+
+
+
+
+
+
+        <div id='mapcontainer'></div>
+
+        <script>
+          mapboxgl.accessToken = 'pk.eyJ1Ijoic2lydmFuM3RyIiwiYSI6ImNqcDhkc3VjbjFhenQzcG8zdGMxdnZxbHIifQ.1IHHhdnTN3Zt4TfZYJGJBA';
+          var map = new mapboxgl.Map({
+          container: 'mapcontainer',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [-88.13734351262877, 35.137451890638886],
+          zoom: 4
+          });
+           
+          map.on('load', function () {
+           
+          var layers = map.getStyle().layers;
+          // Find the index of the first symbol layer in the map style
+          var firstSymbolId;
+          for (var i = 0; i < layers.length; i++) {
+          if (layers[i].type === 'symbol') {
+          firstSymbolId = layers[i].id;
+          break;
+          }
+          }
+          map.addLayer({
+          'id': 'urban-areas-fill',
+          'type': 'fill',
+          'source': {
+          'type': 'geojson',
+          'data': '/static/geo/ref-countries-2016-10m.geojson/CNTR_RG_10M_2016_4326.geojson'
+          },
+          'layout': {},
+          'paint': {
+          'fill-color': '#f08',
+          'fill-opacity': 0.4
+          }
+          // This is the important part of this example: the addLayer
+          // method takes 2 arguments: the layer as an object, and a string
+          // representing another layer's name. if the other layer
+          // exists in the stylesheet already, the new layer will be positioned
+          // right before that layer in the stack, making it possible to put
+          // 'overlays' anywhere in the layer stack.
+          // Insert the layer beneath the first symbol layer.
+          }, firstSymbolId);
+          });
+          </script>
+      <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+<div id="myleafletmap" style="height:500px"></div>
+<script>
+var myymap = L.map('myleafletmap').setView([51.505, -0.09], 3);
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1Ijoic2lydmFuM3RyIiwiYSI6ImNqcDhkc3VjbjFhenQzcG8zdGMxdnZxbHIifQ.1IHHhdnTN3Zt4TfZYJGJBA'
+}).addTo(myymap);
+
+// Fix an issue with bootstrap tabs
+// Simply resize the map
+$("a[href='#map']").on('shown.bs.tab', function(e) {
+  myymap.invalidateSize();
+});
+
+// Add a svg layer to the map
+L.svg().addTo(myymap);
+
+// Create data for circles:
+var markers = [
+  {long: 9.083, lat: 42.149}, // corsica
+  {long: 7.26, lat: 43.71}, // nice
+  {long: 2.349, lat: 48.864}, // Paris
+  {long: -1.397, lat: 43.664}, // Hossegor
+  {long: 3.075, lat: 50.640}, // Lille
+  {long: -3.83, lat: 48}, // Morlaix
+];
+
+// Select the svg area and add circles:
+d3.select("#myleafletmap")
+  .select("svg")
+  .selectAll("myCircles")
+  .data(markers)
+  .enter()
+  .append("circle")
+    .attr("cx", function(d){ return myymap.latLngToLayerPoint([d.lat, d.long]).x })
+    .attr("cy", function(d){ return myymap.latLngToLayerPoint([d.lat, d.long]).y })
+    .attr("r", 14)
+    .style("fill", "red")
+    .attr("stroke", "red")
+    .attr("stroke-width", 3)
+    .attr("fill-opacity", .4)
+
+// Function that update circle position if something change
+function update() {
+  d3.selectAll("circle")
+    .attr("cx", function(d){ return myymap.latLngToLayerPoint([d.lat, d.long]).x })
+    .attr("cy", function(d){ return myymap.latLngToLayerPoint([d.lat, d.long]).y })
+}
+
+// If the user change the map (zoom or drag), I update circle position:
+myymap.on("moveend", update)
+
+</script>
+
+
+<!-- Create an element where the map will take place -->
+<svg id="my_dataviz" width="500" height="300"></svg>
+<script>
+  // The svg
+  var svg = d3.select("#my_dataviz"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+  
+  // Map and projection
+  var projection = d3.geoMercator()
+      .center([2, 47])                // GPS of location to zoom on
+      .scale(500)                       // This is like the zoom
+      .translate([ width/2, height/2 ])
+  
+  // Load external data and boot
+  d3.json("/static/geo/ref-countries-2016-10m.geojson/CNTR_RG_10M_2016_4326.geojson", function(data){
+  
+      // Filter data
+      //data.features = data.features.filter(function(d){console.log(d.properties.name) ; return d.properties.name=="France"})
+  
+      // Draw the map
+      svg.append("g")
+          .selectAll("path")
+          .data(data.features)
+          .enter()
+          .append("path")
+            .attr("fill", "#ccc")
+            .attr("d", d3.geoPath()
+                .projection(projection)
+            )
+          .style("stroke", "none")
+  })
+
+  </script>
+        <div id="myDiv"></div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script>
+        Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_us_airport_traffic.csv', function(err, rows){
+      function unpack(rows, key) {
+          return rows.map(function(row) { return row[key]; });
+      }
+
+var scl = [[0,'rgb(5, 10, 172)'],[0.35,'rgb(40, 60, 190)'],[0.5,'rgb(70, 100, 245)'], [0.6,'rgb(90, 120, 245)'],[0.7,'rgb(106, 137, 247)'],[1,'rgb(220, 220, 220)']];  
+  
+var data = [{
+    type:'scattergeo',
+    locationmode: 'USA-states',
+    lon: unpack(rows, 'long'),
+    lat: unpack(rows, 'lat'),
+    hoverinfor:  unpack(rows, 'airport'),
+    text:  unpack(rows, 'airport'),
+    mode: 'markers',
+    marker: {
+      size: 8,
+      opacity: 0.8,
+      reversescale: true,
+      autocolorscale: false,
+      symbol: 'circle',
+      line: {
+        width: 1,
+        color: 'rgb(102,102,102)'
+      },
+      colorscale: scl,
+      cmin: 0,
+      color: unpack(rows, 'cnt'),
+      colorbar: {
+         title: 'Incoming Flights February 2011'
+      }
+    }
+}];
+
+
+var layout = {
+      title: 'Most Trafficked US airports',
+      colorbar: true,
+      width:1000,
+      height:600,
+      geo: {
+        scope: 'usa',
+        projection: {
+          type: 'albers usa'
+        },
+        showland: true,
+        landcolor: 'rgb(250,250,250)',
+        subunitcolor: 'rgb(217,217,217)',
+        countrycolor: 'rgb(217,217,217)',
+        countrywidth: 1,
+        subunitwidth: 1
+      }
+    };
+  
+Plotly.plot(myDiv, data, layout, {showLink: false, showSendToCloud: true});
+  
+});
+        </script>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+    </main>
+    </div> <!-- /row -->
+
+    
+    <script type="text/javascript" src="/static/js/plot.js"></script>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="../../assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+            <small class="d-block mb-3 text-muted">© 2017-2018</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Cool stuff</a></li>
+              <li><a class="text-muted" href="#">Random feature</a></li>
+              <li><a class="text-muted" href="#">Team feature</a></li>
+              <li><a class="text-muted" href="#">Stuff for developers</a></li>
+              <li><a class="text-muted" href="#">Another one</a></li>
+              <li><a class="text-muted" href="#">Last time</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Resource</a></li>
+              <li><a class="text-muted" href="#">Resource name</a></li>
+              <li><a class="text-muted" href="#">Another resource</a></li>
+              <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Team</a></li>
+              <li><a class="text-muted" href="#">Locations</a></li>
+              <li><a class="text-muted" href="#">Privacy</a></li>
+              <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
+</div><!-- /#container -->
+
+{% endblock %}
