@@ -1,2 +1,2 @@
-FLASK_APP=plotmaponline.py
+FLASK_APP=gftserver.py
 FLASK_ENV=development
