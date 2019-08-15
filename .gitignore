@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 .pyc
+.DS_Store
 venv/
 omneeWarPortal.code-workspace
 __pycache__/
