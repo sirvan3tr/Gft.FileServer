@@ -37,7 +37,7 @@ def getfile():
         'msg': {
             deeID:
             hashFile:
-            txID:
+            txAddress:
             fileName:
             timestamp:
         }
